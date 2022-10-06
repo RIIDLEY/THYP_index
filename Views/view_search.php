@@ -23,8 +23,9 @@ require('view_begin.php');
         <?php
         if (isset($ListFiles)){
             ?>
+            <hr>
         <div class="row">
-            <div class="divStyle col-md-auto">
+            <div class="col divStyle">
  
             <?php
             foreach ($ListFiles as $key => $value){?>
