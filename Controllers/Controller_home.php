@@ -3,9 +3,6 @@
 class Controller_home extends Controller{
 
   public function action_home(){
-
-    $tabsend = array();
-
     $this->render('home');
 }
 
@@ -33,7 +30,7 @@ class Controller_home extends Controller{
               $this->render('home');
       }else{
           echo "<script>alert(\"Une erreure c'est produite lors de l'upload\")</script>";
-          $this->render('upload');
+          $this->render('home');
       }
 
     }else{
@@ -68,11 +65,11 @@ class Controller_home extends Controller{
  public function indexation($document, $IDDoc,$type,$PDF){
   $m = Model::getModel();
 
-  $texte = utf8_encode(file_get_contents($document));//lecture du fichier
+  $texte = file_get_contents($document);//lecture du fichier
   
   $separateurs =  "’'. ,-…][(«»)/\r\n|\n|\r/" ;//caracteres de séparation des mots
 
-  $tab_toks = $this->explode_bis(mb_strtolower(stripAccents($texte),"UTF-8"), $separateurs);//séparation
+  $tab_toks = $this->explode_bis(mb_strtolower($texte,"UTF-8"), $separateurs);//séparation
 
   $tab_new_mots_occurrences = array_count_values ($tab_toks);//compte le nombre d'occurence
 

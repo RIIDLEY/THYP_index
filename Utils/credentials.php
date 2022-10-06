@@ -1,5 +1,5 @@
 <?php
-$dsn = "mysql:dbname=projetbouhai;host=localhost";
+$dsn = "mysql:dbname=thyp_index;host=localhost";
 $login = "ProjetBouhai";
 $mdp = "OyFhLxzfcX9.bEIl";
 ?>
