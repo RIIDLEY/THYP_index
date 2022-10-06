@@ -88,7 +88,103 @@ class Model
         }
     }
 
+        /**
+     * Méthode permettant de recuperer les informations d'un document avec son ID
+     */
+    public function getDocByID($fileID)
+    {
 
+        try {
+            $requete = $this->bd->prepare('Select * from fichiers_upload WHERE FileID = :fileID');
+            $requete->bindValue(':fileID', $fileID);
+            $requete->execute();
+            return $requete->fetchAll(PDO::FETCH_ASSOC)[0];
+        } catch (PDOException $e) {
+            die('Echec getDocByID, erreur n°' . $e->getCode() . ':' . $e->getMessage());
+        }
+    }   
+
+        /**
+     * Méthode permettant de recuperer les documents par a la list de mot clé courante
+     */
+
+    public function getDocumentbyMotV2($ArrayWord)
+    {
+
+        try {
+
+            $arrayDocuID = array();
+            $arrayDocuName = array();
+
+            do{
+                $sql = "SELECT FileID FROM indexation WHERE Word IN (";
+
+                for ($i = 0;$i<count($ArrayWord);$i++){
+                    $sql .= "'".$ArrayWord[$i]."'";
+                    if ($i!=count($ArrayWord)-1){
+                        $sql .= ",";
+                    }
+                }
+                $sql .= ") GROUP BY FileID HAVING COUNT(*) = ".count($ArrayWord);
+
+                $requete = $this->bd->prepare($sql);
+                $requete->execute();
+                $arrayReturnRequete = $requete->fetchall(PDO::FETCH_ASSOC);
+
+                foreach ($arrayReturnRequete as $value){
+                    if (!in_array($value,$arrayDocuID)){
+                        array_push($arrayDocuID,$value);
+                    }
+                }
+                array_pop($ArrayWord);
+            }while(count($ArrayWord)>=1);
+
+            foreach ($arrayDocuID as $value){
+                array_push($arrayDocuName,$this->getDocByID($value["FileID"]));
+            }
+
+
+            return $arrayDocuName;
+
+        } catch (PDOException $e) {
+            die('Echec getDocumentbyMotV2, erreur n°' . $e->getCode() . ':' . $e->getMessage());
+        }
+    }
+
+        /**
+     * Méthode permettant de recuperer l'ID du dernier document inseré
+     */
+
+    public function getListMotsByFilID($InfoFile)
+    {
+        $InfoFileArray = array("FileID"=>$InfoFile["FileID"],"FileName"=>$InfoFile["Name"]);
+        try {
+            $requete = $this->bd->prepare('Select Word from indexation WHERE FileID = :FileID ORDER BY Occurence DESC LIMIT 5');
+            $requete->bindValue(':FileID', $InfoFile["FileID"]);
+            $requete->execute();
+            //return $requete->fetchall(PDO::FETCH_NUM);
+            return array_merge($InfoFileArray,array("ListKeyWords"=>$requete->fetchall(PDO::FETCH_NUM)));
+        } catch (PDOException $e) {
+            die('Echec getListMotsByFilID, erreur n°' . $e->getCode() . ':' . $e->getMessage());
+        }
+    }
+
+        /**
+     * Méthode permettant de recuperer les mots clés d'un document
+     */
+
+    public function getMot($fileID)
+    {
+
+        try {
+            $requete = $this->bd->prepare('Select Word, Occurence from indexation WHERE FileID = :fileID ORDER BY Occurence DESC LIMIT 10');
+            $requete->bindValue(':fileID', $fileID);
+            $requete->execute();
+            return $requete->fetchall(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            die('Echec getMot, erreur n°' . $e->getCode() . ':' . $e->getMessage());
+        }
+    }
 
 
 }

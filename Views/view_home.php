@@ -1,6 +1,11 @@
 <?php
 require('view_begin.php');
 ?>
+    <script>
+        var element = document.getElementById("upload");//Modifie la navbar en fonction de la page actuel
+        element.classList.add("active");
+
+    </script>
     <script type="text/javascript" src="src/Upload.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
