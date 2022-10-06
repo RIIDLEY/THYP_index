@@ -71,7 +71,13 @@ class Controller_home extends Controller{
 
   $tab_toks = $this->explode_bis(mb_strtolower($texte,"UTF-8"), $separateurs);//séparation
 
-  $tab_new_mots_occurrences = array_count_values ($tab_toks);//compte le nombre d'occurence
+  $command = escapeshellcmd("python script/lemma.py ".implode(" ", $tab_toks));//fait la lemmatisation
+  $output = shell_exec($command);
+  $tabLemma = explode("|", $output);
+  array_pop($tabLemma);
+  $tabLemma = array_map("utf8_encode", $tabLemma );
+
+  $tab_new_mots_occurrences = array_count_values ($tabLemma);//compte le nombre d'occurence
 
   foreach($tab_new_mots_occurrences as $k=> $v){//Boucle qui tourne dans le tableau $tab_new_mots_occurrences qui contient le mot avec son occurence et le document dont il provient
       $infos = array("word"=>$k,"occurence"=>$v,"fileID"=>$IDDoc);
