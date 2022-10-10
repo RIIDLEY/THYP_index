@@ -11,7 +11,7 @@ require('view_begin.php');
 
     <div class="grandeDivData container">
     <u><h1>Formulaire d'upload :</h1></u>
-    <form action = "?controller=upload&action=upload" method="post" enctype="multipart/form-data" style="display:inline;">
+    <form action = "?controller=home&action=upload" method="post" enctype="multipart/form-data" style="display:inline;">
 
         <div class="row" style="padding: 2%">
             <div class="col-md-6">

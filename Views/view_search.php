@@ -21,7 +21,7 @@ require('view_begin.php');
             </div>
         </div>
         <?php
-        if (isset($ListFiles)){
+        if (isset($ListFiles) and !empty($ListFiles)) {
             ?>
             <hr>
         <div class="row">
