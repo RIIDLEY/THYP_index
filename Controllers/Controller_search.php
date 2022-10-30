@@ -22,7 +22,7 @@ class Controller_search extends Controller{
                 $ListKeyWords = array_merge($ListKeyWords,array($m->getListMotsByFilID($value)));
             }
 
-            $this->render('search', ['ListFiles'=>$ListFiles,'ListeKeyWords'=>$ListKeyWords]);//envoie les données à la page
+            $this->render('search', ['ListFiles'=>$ListFiles,'ListeKeyWords'=>$ListKeyWords, 'WorSearch'=>$_POST['KeyWords']]);//envoie les données à la page
         }else{
             $this->render("search");
         }
