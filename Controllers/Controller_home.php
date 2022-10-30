@@ -54,7 +54,6 @@ class Controller_home extends Controller{
     $this->render('home');
 
   }
- 
 
 }
 
@@ -83,7 +82,8 @@ class Controller_home extends Controller{
  public function indexation($document, $IDDoc,$type,$PDF){
   $m = Model::getModel();
 
-  $texte = file_get_contents($document,$length=5);//lecture du fichier
+  $texte = stripAccents(file_get_contents_utf8($document));//lecture du fichier
+
   if($type == "Site"){
     $texte_head = get_title($document) . " " . get_description($document) . " " . get_keywords($document);
     $text_head = $this->indexation_head($texte_head,$IDDoc);//fait l'indexation
@@ -92,6 +92,7 @@ class Controller_home extends Controller{
   $separateurs =  "’'. ;\":,-…][(«»)/\r\n|\n|\r/" ;//caracteres de séparation des mots
 
   $tab_toks = $this->explode_bis(mb_strtolower($texte,"UTF-8"), $separateurs);//séparation
+
   $command = escapeshellcmd("python script/lemma.py ".implode(" ", $tab_toks));//fait la lemmatisation
   $output = shell_exec($command);
   $tabLemma = explode("|", $output);
@@ -105,8 +106,10 @@ class Controller_home extends Controller{
     foreach (array_keys($tab_new_mots_occurrences + $text_head) as $key) {
       $sums[$key] = @($tab_new_mots_occurrences[$key] + $text_head[$key]);
     }
+    $tab_new_mots_occurrences = $sums;
   }
-  foreach($sums as $k=> $v){//Boucle qui tourne dans le tableau $tab_new_mots_occurrences qui contient le mot avec son occurence et le document dont il provient
+
+  foreach($tab_new_mots_occurrences as $k=> $v){//Boucle qui tourne dans le tableau $tab_new_mots_occurrences qui contient le mot avec son occurence et le document dont il provient
       $infos = array("word"=>$k,"occurence"=>$v,"fileID"=>$IDDoc);
       $m->addMot($infos);//ajoute dans la BDD
   }

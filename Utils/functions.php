@@ -31,7 +31,7 @@ function getSizeTags($minOccu,$maxOccu,$OccuCourant){
 
 
 function get_title($url){
-    $str = file_get_contents($url);
+    $str = file_get_contents_utf8($url);
     if(strlen($str)>0){
       $str = trim(preg_replace('/\s+/', ' ', $str));
       preg_match("/\<title\>(.*)\<\/title\>/i",$str,$title);
@@ -57,7 +57,8 @@ function get_title($url){
     }
   }
 
-  function get_body($url){
-    $str = file_get_contents($url);
-
-  }
+  function file_get_contents_utf8($fn) {
+    $content = file_get_contents($fn);
+     return mb_convert_encoding($content, 'UTF-8',
+         mb_detect_encoding($content, 'UTF-8, ISO-8859-1', true));
+}
