@@ -20,9 +20,13 @@ require('view_begin.php');
                         </center>
                         <?php
                 }else{?>
+                    <div style="padding: 20px;border: solid; border-radius: 30px;">
                     <center>
-                        <a href="<?=$PathFile?>" target="_blank"><?=$Name?></a>
+                        <iframe src="<?=$PathFile?>" width="400" height="200"></iframe>
+                        <br>
+                        <a href="<?=$PathFile?>" class="btn btn-primary" >Lien vers le site</a>
                     </center>
+                    </div>
                     <?php
 
                 }
@@ -40,8 +44,8 @@ require('view_begin.php');
             </div>
             </div>
             <div class="col" style="display: flex; align-items: center; justify-content: center;" >
-                <div style="padding: 70px 0; text-align: center; margin-bottom: 6%; margin-top: 6%">
-                <u><h1>Nuage de mots :</h1></u>
+                <div style="padding: 70px 0; text-align: center; margin-bottom: 6%; margin-top: 6%; border: solid; border-radius: 30px;">
+                <!-- <u><h1>Nuage de mots :</h1></u> -->
                 <?php
                 if (isset($tabWord)){
                     shuffle($tabWord);
@@ -49,7 +53,7 @@ require('view_begin.php');
                     $MinOccu = min(array_column($tabWord, 'Occurence'));
                     $i=0;
                     foreach ($tabWord as $valueArray) {
-                        echo '<span style="font-size:'.getSizeTags($MinOccu,$MaxOccu,$valueArray["Occurence"]).'px; display:inline">'.$valueArray["Word"].'&nbsp;</span>';
+                        echo '<span style="font-size:'.getSizeTags($MinOccu,$MaxOccu,$valueArray["Occurence"]).'px; display:inline">&nbsp'.$valueArray["Word"].'&nbsp;</span>';
                         $i++;
                         if($i%6==0){
                             echo '<br>';

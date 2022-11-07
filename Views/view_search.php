@@ -7,6 +7,7 @@ require('view_begin.php');
 
     </script>
 
+    <center><h1>Gogle</h1></center>
     <div class="container">
         <div class="row">
             <div class="col DivTools">
@@ -29,7 +30,6 @@ require('view_begin.php');
  
             <?php
             foreach ($ListFiles as $key => $value){?>
-        
                 <a href="?controller=cloud&action=PageInfo&FileId=<?=$value["FileID"]?>" target="_blank" style="text-decoration:none;color: inherit;"><li class="list-group-item">Document : <strong><?=$value["Name"]?></strong></li></a>
             <?php
             }
