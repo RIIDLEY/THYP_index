@@ -30,7 +30,7 @@ require('view_begin.php');
  
             <?php
             foreach ($ListFiles as $key => $value){?>
-                <a href="?controller=cloud&action=PageInfo&FileId=<?=$value["FileID"]?>" target="_blank" style="text-decoration:none;color: inherit;"><li class="list-group-item">Document : <strong><?=$value["Name"]?></strong></li></a>
+                <a href="?controller=cloud&action=PageInfo&FileId=<?=$value["FileID"]?>" style="text-decoration:none;color: inherit;"><li class="list-group-item">Document : <strong><?=$value["Name"]?></strong></li></a>
             <?php
             }
             ?>

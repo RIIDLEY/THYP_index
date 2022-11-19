@@ -39,7 +39,7 @@ function get_title($url){
     }
   }
   
-  function get_description($url){
+  function get_description($url){#DO TO, if pas de description, prend les 30 premiers caracteres
     $meta = get_meta_tags($url);
     if(!empty($meta['description'])){
         return $meta['description'];
