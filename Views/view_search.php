@@ -26,7 +26,15 @@ require('view_begin.php');
         if (isset($ListFiles) and !empty($ListFiles)) {
             ?>
             <hr>
-            <h3><?php echo count($ListFiles);?> documents on été trouvé pour le mot-clé : <?php echo $WorSearch;?></h3>
+            <?php
+            if(count($ListFiles) == 1){?>
+                <h3><?php echo count($ListFiles);?> document a été trouvé pour le mot-clé : <?php echo $WorSearch;?></h3>
+            <?php
+            }else{?>
+                <h3><?php echo count($ListFiles);?> documents ont été trouvé pour le mot-clé : <?php echo $WorSearch;?></h3>
+            <?php }
+            ?>
+            
         <div class="row">
             <div class="col">
  
