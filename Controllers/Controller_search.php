@@ -19,7 +19,7 @@ class Controller_search extends Controller{
             $ListFiles = $m->getDocumentbyMotV2($tabLemma);//get les documents par rapport aux mots clés
             $ListKeyWords = array();
             foreach ($ListFiles as $value) {
-                $ListKeyWords = array_merge($ListKeyWords,array($m->getListMotsByFilID($value)));
+                $ListKeyWords[$value["FileID"]] = $m->getMot($value["FileID"]);
             }
 
             $this->render('search', ['ListFiles'=>$ListFiles,'ListeKeyWords'=>$ListKeyWords, 'WorSearch'=>$_POST['KeyWords']]);//envoie les données à la page

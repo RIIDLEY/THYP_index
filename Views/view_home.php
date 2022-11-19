@@ -51,6 +51,12 @@ require('view_begin.php');
 
     </div>
 
+    <hr>
+
+    <div class="grandeDivData container">
+    <a class="btn btn-primary btn-lg" href="?controller=home&action=clearAllTable">Nettoyer les tables</a>
+    </div>
+
 <?php
 require('view_end.php');
 ?>

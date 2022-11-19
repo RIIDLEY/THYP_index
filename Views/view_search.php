@@ -7,6 +7,7 @@ require('view_begin.php');
 
     </script>
 
+
     <center><h1>Gogle</h1></center>
     <div class="container">
         <div class="row">
@@ -25,12 +26,37 @@ require('view_begin.php');
         if (isset($ListFiles) and !empty($ListFiles)) {
             ?>
             <hr>
+            <h3><?php echo count($ListFiles);?> documents on été trouvé pour le mot-clé : <?php echo $WorSearch;?></h3>
         <div class="row">
-            <div class="col divStyle">
+            <div class="col">
  
             <?php
             foreach ($ListFiles as $key => $value){?>
-                <a href="?controller=cloud&action=PageInfo&FileId=<?=$value["FileID"]?>" style="text-decoration:none;color: inherit;"><li class="list-group-item">Document : <strong><?=$value["Name"]?></strong></li></a>
+                <div class="row divStyle2">
+                    <div class="col">
+                        <u><h4><?php echo $value['Name'];?> :</h4></u>
+                        <p><u>Description :</u> <?php echo $value['Description'];?></p>
+                        <p><u>Type :</u> <?php if ($value['Type'] == "html"){echo "Site Web";}else{echo "Document";}?></p>
+
+                        <a href="?controller=cloud&action=PageInfo&FileId=<?=$value["FileID"]?>" style="text-decoration:none;color: inherit;"><li class="list-group-item">Document : <strong><?=$value["Name"]?></strong></li></a>
+                    </div>
+                    <div class="col" style="text-align: center">
+                        <?php
+                        shuffle($ListeKeyWords[$value['FileID']]);
+                        $MaxOccu = max(array_column($ListeKeyWords[$value['FileID']], 'Occurence'));
+                        $MinOccu = min(array_column($ListeKeyWords[$value['FileID']], 'Occurence'));
+                        $i=0;
+                        foreach ($ListeKeyWords[$value['FileID']] as $key => $value) {
+                            echo '<span id="foo" style="font-size:'.getSizeTags($MinOccu,$MaxOccu,$value["Occurence"]).'px;">&nbsp'.$value["Word"].'&nbsp;</span>';
+                            $i++;
+                            if($i%4==0){
+                                echo '<br>';
+                            }
+                        }
+                        ?>
+                    </div>
+                </div>
+                
             <?php
             }
             ?>

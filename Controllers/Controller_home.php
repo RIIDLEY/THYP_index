@@ -10,6 +10,13 @@ class Controller_home extends Controller{
     $this->action_home();
   }
 
+  public function action_clearAllTable(){
+    $m = Model::getModel();
+    $m->clearTableIndex();
+    //$m->clearTableDoc();
+    $this->action_home();
+  }
+
   public function action_upload(){
 
     if(!empty($_FILES['fichier'])) {

@@ -187,4 +187,24 @@ class Model
     }
 
 
+    public function clearTableIndex()
+    {
+        try {
+            $requete = $this->bd->prepare('TRUNCATE TABLE indexation;');
+            $requete->execute();
+        } catch (PDOException $e) {
+            die('Echec clearAllTable, erreur n°' . $e->getCode() . ':' . $e->getMessage());
+        }
+    }
+
+    public function clearTableDoc()
+    {
+        try {
+            $requete = $this->bd->prepare('TRUNCATE TABLE fichiers_upload;');
+            $requete->execute();
+        } catch (PDOException $e) {
+            die('Echec clearTableDoc, erreur n°' . $e->getCode() . ':' . $e->getMessage());
+        }
+    }
+
 }
