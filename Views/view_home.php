@@ -55,6 +55,7 @@ require('view_begin.php');
 
     <div class="grandeDivData container">
     <a class="btn btn-primary btn-lg" href="?controller=home&action=clearAllTable">Nettoyer les tables</a>
+    <a class="btn btn-primary btn-lg" href="?controller=home&action=lectureFolder">Scan</a>
     </div>
 
 <?php

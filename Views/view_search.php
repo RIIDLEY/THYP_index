@@ -46,7 +46,7 @@ require('view_begin.php');
                         <p><u>Description :</u> <?php echo $value['Description'];?></p>
                         <p><u>Type :</u> <?php if ($value['Type'] == "html"){echo "Site Web";}else{echo "Document";}?></p>
 
-                        <a href="?controller=cloud&action=PageInfo&FileId=<?=$value["FileID"]?>" style="text-decoration:none;color: inherit;"><li class="list-group-item">Document : <strong><?=$value["Name"]?></strong></li></a>
+                        <a class="btn btn-primary" <?php if ($value['Type'] == "html"){echo "href=\"".$value['Filename']."\"";}else{echo "href=\"src/Upload/".$value['Filename']."\"";}?>>Document</a>
                     </div>
                     <div class="col" style="text-align: center">
                         <?php

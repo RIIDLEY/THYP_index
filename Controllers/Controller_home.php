@@ -117,7 +117,10 @@ class Controller_home extends Controller{
   }
 
   foreach($tab_new_mots_occurrences as $k=> $v){//Boucle qui tourne dans le tableau $tab_new_mots_occurrences qui contient le mot avec son occurence et le document dont il provient
-      $infos = array("word"=>$k,"occurence"=>$v,"fileID"=>$IDDoc);
+      $stringParts = str_split($k);
+      sort($stringParts);
+      $wordsort = implode($stringParts);
+      $infos = array("word"=>$k,"wordsort"=>$wordsort,"occurence"=>$v,"fileID"=>$IDDoc);
       $m->addMot($infos);//ajoute dans la BDD
   }
 
@@ -141,12 +144,54 @@ public function indexation_head($text,$IDDoc){
     $tab_new_mots_occurrences[$key] = intval($tab_new_mots_occurrences[$key]) * 1.5;
   }
   return $tab_new_mots_occurrences;
-/*
-  foreach($tab_new_mots_occurrences as $k=> $v){//Boucle qui tourne dans le tableau $tab_new_mots_occurrences qui contient le mot avec son occurence et le document dont il provient
-      $infos = array("word"=>$k,"occurence"=>strval(intval($v)*1.5),"fileID"=>$IDDoc);
-      $m->addMot($infos);//ajoute dans la BDD
-  }*/
+}
 
+public function action_lectureFolder(){
+  $path= "docs";
+  $this->explorerDir($path);//Appel la fonction
+  echo("<script>window.location = 'index.php';</script>");
+}
+
+function explorerDir($path){
+  $extensionValide = array("txt");//extensions autorisées
+  $folder = opendir($path);
+  while($entree = readdir($folder))//Tant qu'on peut lire dans le dossier courant
+  {		
+    if($entree != "." && $entree != "..")//Si ce que la fonction readdir trouve n'est pas ".." et "."
+    {
+      
+      if(is_dir($path."/".$entree))//Si c'est un dossier
+      {
+        $sav_path = $path;//Met le chemin courant dans une variable
+        $path .= "/".$entree;//Met le chemin du dossier qu'il a trouvé dans une variable 		
+        $this->explorerDir($path);//Fait un appel récursive (appel à lui meme) avec le nouveau chemin. (Explore le dossier trouvé)
+        $path = $sav_path;//Met l'ancien chemin courant afin de continué à le parcourir
+      }
+      else
+      {
+        $path_source = $path."/".$entree;//	Variable contenant le chemin vers le fichier trouvé			
+        
+        $tmp = explode(".", $path_source);
+        $type = end($tmp);//recupere l'extension du fichier courant
+        $size = filesize($path_source);//recupere la taille du fichier courant
+
+        $idrandom = str_replace(".","",uniqid('', true));
+
+        if (in_array($type,$extensionValide)){//si c'est un fichier texte
+
+          if (copy($path_source, 'src/Upload/'.$idrandom."_".stripAccents(str_replace(' ', '', $entree)))) {
+                      $m = Model::getModel();
+                      $filename = $idrandom."_".stripAccents(str_replace(' ', '', $entree));
+                      $tmp_infos = ['name'=>$entree, 'description' =>substr(stripAccents(file_get_contents_utf8($path_source)), 0, 50), 'filename'=>$filename,'type'=>$type, 'size'=>$size];
+          
+                      $IdDocu = $m->addDoc($tmp_infos);//ajoute le fichier à la BDD
+                      $this->indexation("src/Upload/".$filename,$IdDocu,"Document",$type);//fait l'indexation
+          }     
+        }
+      }
+    }
+  }
+  closedir($folder);
 }
 
   

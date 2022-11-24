@@ -77,8 +77,8 @@ class Model
     public function addMot($infos)
     {
         try {
-            $requete = $this->bd->prepare('INSERT INTO indexation (Word, Occurence, FileID) VALUES (:word, :occurence, :fileID);');
-            $marqueurs = ['word', 'occurence', 'fileID'];
+            $requete = $this->bd->prepare('INSERT INTO indexation (Word,WordSort, Occurence, FileID) VALUES (:word, :wordsort, :occurence, :fileID);');
+            $marqueurs = ['word','wordsort', 'occurence', 'fileID'];
             foreach ($marqueurs as $value) {
                 $requete->bindValue(':' . $value, $infos[$value]);
             }
@@ -117,10 +117,13 @@ class Model
             $arrayDocuName = array();
 
             do{
-                $sql = "SELECT FileID FROM indexation WHERE Word IN (";
+                $sql = "SELECT FileID FROM indexation WHERE WordSort IN (";
 
                 for ($i = 0;$i<count($ArrayWord);$i++){
-                    $sql .= "'".$ArrayWord[$i]."'";
+                    $stringParts = str_split($ArrayWord[$i]);
+                    sort($stringParts);
+                    $wordsort = implode($stringParts);
+                    $sql .= "'".$wordsort."'";
                     if ($i!=count($ArrayWord)-1){
                         $sql .= ",";
                     }
