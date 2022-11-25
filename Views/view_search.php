@@ -5,6 +5,13 @@ require('view_begin.php');
         var element = document.getElementById("home");//Modifie la navbar en fonction de la page actuel
         element.classList.add("active");
 
+        function showHide(id) {
+            var el = document.getElementById(id);
+            if( el && el.style.display == 'block')    
+                el.style.display = 'none';
+            else 
+                 el.style.display = 'block';
+}
     </script>
 
 
@@ -47,8 +54,9 @@ require('view_begin.php');
                         <p><u>Type :</u> <?php if ($value['Type'] == "html"){echo "Site Web";}else{echo "Document";}?></p>
 
                         <a class="btn btn-primary" <?php if ($value['Type'] == "html"){echo "href=\"".$value['Filename']."\"";}else{echo "href=\"src/Upload/".$value['Filename']."\"";}?>>Document</a>
+                        <a class="btn btn-primary" onclick="showHide('<?php echo $value['FileID'];?>')">Nuage de mots</a>
                     </div>
-                    <div class="col" style="text-align: center">
+                    <div class="col" id="<?php echo $value['FileID'];?>" style="text-align: center; display: none;">
                         <?php
                         shuffle($ListeKeyWords[$value['FileID']]);
                         $MaxOccu = max(array_column($ListeKeyWords[$value['FileID']], 'Occurence'));
@@ -73,6 +81,7 @@ require('view_begin.php');
         } ?>
         </div>
     </div>
+
 
 <?php
 require('view_end.php');

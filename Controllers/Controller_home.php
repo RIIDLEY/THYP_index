@@ -149,6 +149,7 @@ public function indexation_head($text,$IDDoc){
 public function action_lectureFolder(){
   $path= "docs";
   $this->explorerDir($path);//Appel la fonction
+  echo "<script>alert(\"Le dossier a bien été scanné\")</script>";
   echo("<script>window.location = 'index.php';</script>");
 }
 
