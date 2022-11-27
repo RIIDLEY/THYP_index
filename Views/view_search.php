@@ -11,7 +11,15 @@ require('view_begin.php');
                 el.style.display = 'none';
             else 
                  el.style.display = 'block';
-}
+            }
+
+        function chargement() {//Set le bouton de chargement
+            var element = document.getElementById("buttonSubmit");
+            element.style.display = 'none';
+
+            var element = document.getElementById("buttonLoad");
+            element.style.display = 'inline';
+        }
     </script>
 
 
@@ -24,7 +32,11 @@ require('view_begin.php');
                     <input type="text" class="form-control" name="KeyWords" size="50" placeholder="Mot clés"/>
                     </div>
                     <div class="input-group-append">
-                        <input type="submit" value="Chercher" class="btn btn-primary"/></form>
+                        <input type="submit" value="Chercher" id="buttonSubmit" onclick="chargement()" class="btn btn-primary"/></form>
+                        <button class="btn btn-primary" id="buttonLoad" type="button" disabled style="display: none;">
+                            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                            <span class="sr-only">Chargement</span>
+                        </button>
                     </div>
 
             </div>

@@ -5,6 +5,14 @@ require('view_begin.php');
         var element = document.getElementById("upload");//Modifie la navbar en fonction de la page actuel
         element.classList.add("active");
 
+        function chargement(idButton,idLoad) {//Set le bouton de chargement
+            var element = document.getElementById(idButton);
+            element.style.display = 'none';
+
+            var element = document.getElementById(idLoad);
+            element.style.display = 'inline';
+        }
+
     </script>
     <script type="text/javascript" src="src/Upload.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -26,7 +34,11 @@ require('view_begin.php');
                 <input id="InputFile" type="file" class="form-control-file" name="fichier" accept=".txt,.pdf">
             </div>
 			<div class="col-md-6">
-				<input type="submit" class="btn btn-primary btn-lg" value="Envoyer"/>
+				<input type="submit" class="btn btn-primary btn-lg" value="Envoyer" id="buttonSubmitDocForum" onclick="chargement('buttonSubmitDocForum','buttonLoadDocForum')" />
+                <button class="btn btn-primary" id="buttonLoadDocForum" type="button" disabled style="display: none;">
+                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                        <span class="sr-only">Chargement</span>
+                </button>
             </div>
         </div>
     </form>
@@ -43,7 +55,11 @@ require('view_begin.php');
                 <input type="url" class="form-control" name="URL" placeholder="URL" pattern="https://.*" maxLength="50" required>
             </div>
             <div class="col-md-6">
-				<input type="submit" class="btn btn-primary btn-lg" value="Envoyer"/>
+				<input type="submit" class="btn btn-primary btn-lg" value="Envoyer" id="buttonSubmiSiteForm" onclick="chargement('buttonSubmiSiteForm','buttonLoadSiteForm')"/>
+                <button class="btn btn-primary" id="buttonLoadSiteForm" type="button" disabled style="display: none;">
+                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                        <span class="sr-only">Chargement</span>
+                </button>
             </div>
 
         </div>
@@ -55,7 +71,12 @@ require('view_begin.php');
 
     <div class="grandeDivData container">
     <a class="btn btn-primary btn-lg" href="?controller=home&action=clearAllTable">Nettoyer les tables</a>
-    <a class="btn btn-primary btn-lg" href="?controller=home&action=lectureFolder">Scan</a>
+
+    <a class="btn btn-primary btn-lg" href="?controller=home&action=lectureFolder" id="buttonSubmiRecur" onclick="chargement('buttonSubmiRecur','buttonLoadRecur')">Scan</a>
+    <button class="btn btn-primary" id="buttonLoadRecur" type="button" disabled style="display: none;">
+        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+        <span class="sr-only">Chargement</span>
+    </button>
     </div>
 
 <?php
