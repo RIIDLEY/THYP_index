@@ -64,6 +64,6 @@ function get_title($url){
 }
 
  function getRandomColor(){
-    $background_colors = array('#88e904', 'red', '#4bc5c5', 'pink','orange','yellow','green','blue','grey','brown');
+    $background_colors = array('#88e904', 'red', '#4bc5c5','orange','green','blue','brown');
     return $background_colors[array_rand($background_colors)];
  }

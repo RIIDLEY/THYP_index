@@ -29,7 +29,7 @@ require('view_begin.php');
             <div class="col DivTools">
                 <form class="form-inline" action = "?controller=search&action=recherche" method="post" style="display: inline-block;">
                     <div class="input-group mb-3">
-                    <input type="text" class="form-control" name="KeyWords" size="50" placeholder="Mot clés"/>
+                    <input type="text" class="form-control" name="KeyWords" size="50" placeholder="Mot clés" <?php if (isset($WorSearch)){echo 'value="'.$WorSearch.'"';}?>/>
                     </div>
                     <div class="input-group-append">
                         <input type="submit" value="Chercher" id="buttonSubmit" onclick="chargement()" class="btn btn-primary"/></form>
@@ -60,15 +60,14 @@ require('view_begin.php');
             <?php
             foreach ($ListFiles as $key => $value){?>
                 <div class="row divStyle2">
-                    <div class="col">
-                        <h4><?php echo $value['Name'];?></h4>
+                    <div class="col" style="padding: 30px;">
+                        <h4><?php echo $value['Name'];?>    <a class="btn btn-primary" onclick="showHide('<?php echo $value['FileID'];?>')"> <img src="src/css/nuage.png"  width="25" > </a></h4>
                         <p><?php echo $value['Description'];?></p>
-                        <p><u>Type :</u> <?php if ($value['Type'] == "html"){echo "Site Web";}else{echo "Document";}?></p>
+                        <!-- <p><u>Type :</u> <?php if ($value['Type'] == "html"){echo "Site Web";}else{echo "Document";}?></p> -->
 
-                        <a class="btn btn-primary" <?php if ($value['Type'] == "html"){echo "href=\"".$value['Filename']."\"";}else{echo "href=\"src/Upload/".$value['Filename']."\"";}?>>Document</a>
-                        <a class="btn btn-primary" onclick="showHide('<?php echo $value['FileID'];?>')"> <img src="src/css/nuage.png"  width="25" > </a>
+                        <!-- <a class="btn btn-primary" <?php if ($value['Type'] == "html"){echo "href=\"".$value['Filename']."\"";}else{echo "href=\"src/Upload/".$value['Filename']."\"";}?>>Document</a> -->
                     </div>
-                    <div class="col" id="<?php echo $value['FileID'];?>" style="text-align: center; display: none;">
+                    <div class="col" id="<?php echo $value['FileID'];?>" style="text-align: center; display: none; border-left: 4px solid white; border-top-left-radius: 80px; background: #D7DBE3; border-bottom-left-radius: 80px;">
                         <?php
                         shuffle($ListeKeyWords[$value['FileID']]);
                         $MaxOccu = max(array_column($ListeKeyWords[$value['FileID']], 'Occurence'));
