@@ -47,10 +47,10 @@ require('view_begin.php');
             <hr>
             <?php
             if(count($ListFiles) == 1){?>
-                <h3><?php echo count($ListFiles);?> document a été trouvé pour le mot-clé : <?php echo $WorSearch;?></h3>
+                <h5><?php echo count($ListFiles);?> document a été trouvé pour le mot-clé : <?php echo $WorSearch;?></h5>
             <?php
             }else{?>
-                <h3><?php echo count($ListFiles);?> documents ont été trouvé pour le mot-clé : <?php echo $WorSearch;?></h3>
+                <h5><?php echo count($ListFiles);?> documents ont été trouvé pour le mot-clé : <?php echo $WorSearch;?></h5>
             <?php }
             ?>
             
@@ -61,10 +61,10 @@ require('view_begin.php');
             foreach ($ListFiles as $key => $value){?>
                 <div class="row divStyle2">
                     <div class="col" style="padding: 30px;">
-                        <h4><?php echo $value['Name'];?>    <a class="btn btn-primary" onclick="showHide('<?php echo $value['FileID'];?>')"> <img src="src/css/nuage.png"  width="25" > </a></h4>
+                        <!-- <a <?php if ($value['Type'] == "html"){echo "href=\"".$value['Filename']."\"";}else{echo "href=\"src/Upload/".$value['Filename']."\"";}?>><?php echo $value['Name'];?></a>  -->
+                        <h4><a <?php if ($value['Type'] == "html"){echo "href=\"".$value['Filename']."\"";}else{echo "href=\"src/Upload/".$value['Filename']."\"";}?>><?php echo $value['Name'];?></a>    <a class="btn btn-primary" onclick="showHide('<?php echo $value['FileID'];?>')"> <img src="src/css/nuage.png"  width="25" > </a></h4>
                         <p><?php echo $value['Description'];?></p>
                         <!-- <p><u>Type :</u> <?php if ($value['Type'] == "html"){echo "Site Web";}else{echo "Document";}?></p> -->
-
                         <!-- <a class="btn btn-primary" <?php if ($value['Type'] == "html"){echo "href=\"".$value['Filename']."\"";}else{echo "href=\"src/Upload/".$value['Filename']."\"";}?>>Document</a> -->
                     </div>
                     <div class="col" id="<?php echo $value['FileID'];?>" style="text-align: center; display: none; border-left: 4px solid white; border-top-left-radius: 80px; background: #D7DBE3; border-bottom-left-radius: 80px;">
