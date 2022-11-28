@@ -23,7 +23,7 @@ require('view_begin.php');
     </script>
 
 
-    <center><h1>Gogle</h1></center>
+    <center><h1>Gogle <img src="src/css/loupe.png"  width="40"></h1></center>
     <div class="container">
         <div class="row">
             <div class="col DivTools">
@@ -61,12 +61,12 @@ require('view_begin.php');
             foreach ($ListFiles as $key => $value){?>
                 <div class="row divStyle2">
                     <div class="col">
-                        <u><h4><?php echo $value['Name'];?> :</h4></u>
-                        <p><u>Description :</u> <?php echo $value['Description'];?></p>
+                        <h4><?php echo $value['Name'];?></h4>
+                        <p><?php echo $value['Description'];?></p>
                         <p><u>Type :</u> <?php if ($value['Type'] == "html"){echo "Site Web";}else{echo "Document";}?></p>
 
                         <a class="btn btn-primary" <?php if ($value['Type'] == "html"){echo "href=\"".$value['Filename']."\"";}else{echo "href=\"src/Upload/".$value['Filename']."\"";}?>>Document</a>
-                        <a class="btn btn-primary" onclick="showHide('<?php echo $value['FileID'];?>')">Nuage de mots</a>
+                        <a class="btn btn-primary" onclick="showHide('<?php echo $value['FileID'];?>')"> <img src="src/css/nuage.png"  width="25" > </a>
                     </div>
                     <div class="col" id="<?php echo $value['FileID'];?>" style="text-align: center; display: none;">
                         <?php
@@ -75,7 +75,7 @@ require('view_begin.php');
                         $MinOccu = min(array_column($ListeKeyWords[$value['FileID']], 'Occurence'));
                         $i=0;
                         foreach ($ListeKeyWords[$value['FileID']] as $key => $value) {
-                            echo '<span id="foo" style="font-size:'.getSizeTags($MinOccu,$MaxOccu,$value["Occurence"]).'px;">&nbsp'.$value["Word"].'&nbsp;</span>';
+                            echo '<span id="foo" style="font-size:'.getSizeTags($MinOccu,$MaxOccu,$value["Occurence"]).'px; color : '.getRandomColor().'">&nbsp'.$value["Word"].'&nbsp;</span>';
                             $i++;
                             if($i%4==0){
                                 echo '<br>';

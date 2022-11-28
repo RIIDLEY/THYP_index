@@ -62,3 +62,8 @@ function get_title($url){
      return mb_convert_encoding($content, 'UTF-8',
          mb_detect_encoding($content, 'UTF-8, ISO-8859-1', true));
 }
+
+ function getRandomColor(){
+    $background_colors = array('#88e904', 'red', '#4bc5c5', 'pink','orange','yellow','green','blue','grey','brown');
+    return $background_colors[array_rand($background_colors)];
+ }

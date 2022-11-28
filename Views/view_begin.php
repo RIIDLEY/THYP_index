@@ -8,7 +8,7 @@
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
             <a class="nav-item nav-link" href="?controller=search" id="home">Search</a>
-            <a class="nav-item nav-link" href="?controller=home" id="upload">Upload</a>
+            <a class="nav-item nav-link" href="?controller=home" id="upload">Admin</a>
         </div>
     </div>
 </nav>
