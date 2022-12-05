@@ -195,6 +195,40 @@ function explorerDir($path){
   closedir($folder);
 }
 
+
+public function action_upload_folder(){
+
+  if (!empty($_FILES['dir_upload']['name'])) {
+
+    for ($i=0; $i < count($_FILES['dir_upload']['name']); $i++) { 
+
+      $tmp_nom = $_FILES['dir_upload']['tmp_name'][$i];
+
+      $idrandom = str_replace(".","",uniqid('', true));
+
+      if (pathinfo($_FILES['dir_upload']['name'][$i])['extension'] == "txt") {
+        if(move_uploaded_file($tmp_nom, 'src/Upload/'.$idrandom."_".stripAccents(str_replace(' ', '', $_FILES['dir_upload']['name'][$i])))){//ajoute le fichier à dossier de stockage du serveur avec la suppression des espaces
+          $m = Model::getModel();
+          $filename = $idrandom."_".stripAccents(str_replace(' ', '',$_FILES['dir_upload']['name'][$i]));
+          $tmp_infos = ['name'=>basename($_FILES['dir_upload']['name'][$i] , '.txt'), 'description' =>substr(stripAccents(file_get_contents_utf8("src/Upload/".$filename)), 0, 50)."...", 'filename'=>$filename,'type'=>pathinfo($_FILES['dir_upload']['name'][$i])['extension'], 'size'=>$_FILES['dir_upload']['size'][$i]];
+
+          $IdDocu = $m->addDoc($tmp_infos);//ajoute le fichier à la BDD
+
+          $extension = pathinfo("src/Upload/".$filename, PATHINFO_EXTENSION);
+          $this->indexation("src/Upload/".$filename,$IdDocu,"Document",$extension);//fait l'indexation
+        }
+      }
+
+    }
+
+  }
+
+
+  echo "<script>alert(\"Dossier bien upload\")</script>";
+  $this->render('home');
+
+}
+
   
 }
 

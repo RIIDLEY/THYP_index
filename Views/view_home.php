@@ -18,7 +18,7 @@ require('view_begin.php');
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
     <div class="grandeDivData container">
-    <u><h1>Formulaire d'upload de document :</h1></u>
+    <u><h1>Formulaire d'upload de document</h1></u>
     <form action = "?controller=home&action=upload" method="post" enctype="multipart/form-data" style="display:inline;">
 
         <div class="row" style="padding: 2%">
@@ -47,7 +47,7 @@ require('view_begin.php');
 
     <div class="grandeDivData container">
     <!-- https://riidley.github.io/tmp_html/index.html -->
-    <u><h1>Formulaire d'indexation de site :</h1></u>
+    <u><h1>Formulaire d'indexation de site</h1></u>
     <form action = "?controller=home&action=upload_URL" method="post" enctype="multipart/form-data" style="display:inline;">
 
         <div class="row" style="padding: 2%">
@@ -70,14 +70,32 @@ require('view_begin.php');
     <hr>
 
     <div class="grandeDivData container">
-    <a class="btn btn-primary btn-lg" href="?controller=home&action=clearAllTable">Nettoyer les tables</a>
+    <a class="btn btn-primary btn-lg" href="?controller=home&action=clearAllTable">Vider les tables</a>
 
-    <a class="btn btn-primary btn-lg" href="?controller=home&action=lectureFolder" id="buttonSubmiRecur" onclick="chargement('buttonSubmiRecur','buttonLoadRecur')">Scan</a>
+    <!-- <a class="btn btn-primary btn-lg" href="?controller=home&action=lectureFolder" id="buttonSubmiRecur" onclick="chargement('buttonSubmiRecur','buttonLoadRecur')">Scanner le repertoire courant</a>
     <button class="btn btn-primary" id="buttonLoadRecur" type="button" disabled style="display: none;">
         <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
         <span class="sr-only">Chargement</span>
-    </button>
+    </button> -->
     </div>
+
+    <hr>
+
+    <div class="grandeDivData container">
+    <!-- https://riidley.github.io/tmp_html/index.html -->
+    <u><h1>Indexation dossier</h1></u>
+    <form action = "?controller=home&action=upload_folder" method="post" enctype="multipart/form-data" style="display:inline;">
+        <div class="row" style="padding: 2%">
+            <div class="col-md-6">
+            <input type="file" name="dir_upload[]" webkitdirectory directory multiple />
+            </div>
+
+            <div class="col-md-6">
+            <input type="submit" class="btn btn-primary btn-lg" value="Envoyer"/>
+            </div>
+
+        </div>
+    </form>
 
 <?php
 require('view_end.php');

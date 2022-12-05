@@ -44,7 +44,7 @@ function get_title($url){
     if(!empty($meta['description'])){
         return $meta['description'];
     }else{
-        return substr(stripAccents(file_get_contents_utf8($url)), 0, 50);
+        return substr(stripAccents(file_get_contents_utf8($url)), 0, 50)."...";
     }
   }
 
