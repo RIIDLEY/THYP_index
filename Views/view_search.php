@@ -62,7 +62,7 @@ require('view_begin.php');
                 <div class="row divStyle2">
                     <div class="col" style="padding: 30px;">
                         <!-- <a <?php if ($value['Type'] == "html"){echo "href=\"".$value['Filename']."\"";}else{echo "href=\"src/Upload/".$value['Filename']."\"";}?>><?php echo $value['Name'];?></a>  -->
-                        <h4><a <?php if ($value['Type'] == "html"){echo "href=\"".$value['Filename']."\"";}else{echo "href=\"src/Upload/".$value['Filename']."\"";}?>><?php echo $value['Name'];?></a>    <a class="btn btn-primary" onclick="showHide('<?php echo $value['FileID'];?>')"> <img src="src/css/nuage.png"  width="25" > </a></h4>
+                        <h4><a style="text-decoration:none; color: inherit;" <?php if ($value['Type'] == "html"){echo "href=\"".$value['Filename']."\"";}else{echo "href=\"src/Upload/".$value['Filename']."\"";}?>><?php echo $value['Name'];?></a>    <a class="btn btn-primary" onclick="showHide('<?php echo $value['FileID'];?>')"> <img src="src/css/nuage.png"  width="25" > </a></h4>
                         <p><?php echo $value['Description'];?></p>
                         <!-- <p><u>Type :</u> <?php if ($value['Type'] == "html"){echo "Site Web";}else{echo "Document";}?></p> -->
                         <!-- <a class="btn btn-primary" <?php if ($value['Type'] == "html"){echo "href=\"".$value['Filename']."\"";}else{echo "href=\"src/Upload/".$value['Filename']."\"";}?>>Document</a> -->
@@ -74,9 +74,9 @@ require('view_begin.php');
                         $MinOccu = min(array_column($ListeKeyWords[$value['FileID']], 'Occurence'));
                         $i=0;
                         foreach ($ListeKeyWords[$value['FileID']] as $key => $value) {
-                            echo '<span id="foo" style="font-size:'.getSizeTags($MinOccu,$MaxOccu,$value["Occurence"]).'px; color : '.getRandomColor().'">&nbsp'.$value["Word"].'&nbsp;</span>';
+                            echo '<span id="foo" style="font-size:'.getSizeTags($MinOccu,$MaxOccu,$value["Occurence"]).'px; color : '.getRandomColor().'">'.$value["Word"].'&nbsp;</span>';
                             $i++;
-                            if($i%4==0){
+                            if($i%6==0){
                                 echo '<br>';
                             }
                         }

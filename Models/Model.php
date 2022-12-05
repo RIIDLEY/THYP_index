@@ -180,7 +180,7 @@ class Model
     {
 
         try {
-            $requete = $this->bd->prepare('Select Word, Occurence from indexation WHERE FileID = :fileID ORDER BY Occurence DESC LIMIT 10');
+            $requete = $this->bd->prepare('Select Word, Occurence from indexation WHERE FileID = :fileID ORDER BY Occurence DESC LIMIT 20');
             $requete->bindValue(':fileID', $fileID);
             $requete->execute();
             return $requete->fetchall(PDO::FETCH_ASSOC);
